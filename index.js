@@ -13,8 +13,25 @@ module.exports = {
         // })
         function parser (rules) {
             let p = rules.match(statement)
-            console.log(JSON.stringify(rules))
+            const vm = {
+                statements: [],
+                pharses: [],
+                rules
+            }
+            parse_statement(vm)
+            parse_pharse(vm)
             return p
+        }
+
+        function parse_statement (self) {
+            self.statements = self.rules.match(statement)
+        }
+
+        function parse_pharse (self) {
+            self.statements.reduce((arr, statement => {
+                arr.push(statement.match(pharse))
+                return arr
+            }, self.pharses))
         }
     }
 }
