@@ -9,16 +9,17 @@ const models = {
     updated_at: null
 }
 
-poke.validator({
-    builder: models,
-    rules: `
-        |> id!type!name!password! |>
-        |> id=3 && type!name!password!
-    `
-})
-
 // module.exports = models
-module.exports = {
+module.exports = function () {
+    poke.validator({
+        builder: models,
+        rules: `
+            |> id!type!name!password! |>
+            |> id=3 && type!name!password!
+        `
+    })
+
+    return {
     a: `
         |> id!type!name!password! |>
         |> id=3 && type!name!password!
@@ -34,4 +35,5 @@ module.exports = {
     d: `
     |>|>|>
 `
+    }
 }
